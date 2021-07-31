@@ -70,8 +70,12 @@
                                 <a class="nav-link @if(\Route::current()->getName() == 'classe-index') active  @endif" href="{{ route('classe-index') }} "><i class="fas fa-house-user"></i>
                                     Parcours </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link @if(\Route::current()->getName() == 'stage-index') active  @endif" href=" {{ route('stage-index') }} "><i class="fas fa-home"></i>
+                                    Stages</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link @if(\Route::current()->getName() == 'page-stage') active  @endif" href=" {{ route('page-stage') }} "><i class="fas fa-house-user"></i>
                                     Stages</a>
                             </li>
                             <li class="nav-item">

@@ -6,9 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Secteur;
-use App\Models\Cercle;
-use App\Models\Region;
+use App\Models\Etudiant;
+use App\Models\Enseignant;
+
 
 class User extends Authenticatable
 {
@@ -47,15 +47,12 @@ class User extends Authenticatable
     ];
 
 
-    public function secteur(){
-        return $this->belongsTo(Secteur::class);
+    public function etudiant(){
+        return $this->hasMany(Etudiant::class);
+    }
+    public function enseigants(){
+        return $this->belongsTo(Enseignant::class);
     }
 
-    public function cercle(){
-        return $this->belongsTo(Cercle::class);
-    }
-    public function region(){
-        return $this->belongsTo(Region::class);
-    }
         
 }

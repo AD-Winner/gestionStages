@@ -3,6 +3,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Etudiant;
+use App\Models\Enseignant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -54,6 +56,83 @@ class UserController extends Controller
             return redirect(route('users-index'));
         }
     }
+     public function profilEtudiant($id){
+        $user = User::find($id);
+        $etudiant = Etudiant::where('user_id', '=',$id)->first();
+        // dd($etudiant);
+        if(!empty($user)){
+
+            return view('etudiants.profil-index', [
+                'user'=>$user,
+                'etudiant'=>$etudiant,
+            ]);
+        }else{
+            return redirect(route('users-index'));
+        }
+    }
+     public function profilShow($id){
+        $user = User::find($id);
+        $etudiant = Etudiant::where('user_id', '=',$id)->first();
+        // dd($etudiant);
+        if(!empty($user)){
+
+            return view('etudiants.profil-update', [
+                'user'=>$user,
+                'etudiant'=>$etudiant,
+            ]);
+        }
+    }
+     public function profilUpdate(Request $request, $id){
+        $user = User::find($id);
+       // $etudiant = Etudiant::where('user_id', '=',$id)->first();
+       if($user){
+            
+            $user->password= Hash::make($request->password);
+            $user->update();
+            return redirect(route('etudiant-profil', ['id'=>$user->id]))->with('success', 'Mise à jour effectué.');
+            
+        }else{
+            return redirect(route('etudiant-profil'))->with('error', 'Mise à jour non effectué.');
+        }
+    }
+     public function profilEnseignant($id){
+        $user = User::find($id);
+        $enseignant = Enseignant::where('user_id', '=',$id)->first();
+       //  dd($enseignant);
+        if(!empty($user)){
+
+            return view('enseignants.profil-index', [
+                'user'=>$user,
+                'enseignant'=>$enseignant,
+            ]);
+        }
+        
+    }
+     public function profilShowEnseignant($id){
+        $user = User::find($id);
+        $enseignant = Enseignant::where('user_id', '=',$id)->first();
+        // dd($etudiant);
+        if(!empty($user)){
+
+            return view('enseignants.profil-update', [
+                'user'=>$user,
+                'enseignant'=>$enseignant,
+            ]);
+        }
+    }
+     public function profilUpdateEnseignant(Request $request, $id){
+        $user = User::find($id);
+       // $etudiant = Etudiant::where('user_id', '=',$id)->first();
+       if($user){
+            
+            $user->password= Hash::make($request->password);
+            $user->update();
+            return redirect(route('enseignant-profil', ['id'=>$user->id]))->with('success', 'Mise à jour effectué.');
+            
+        }else{
+            return redirect(route('enseignant-profil'))->with('error', 'Mise à jour non effectué.');
+        }
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -68,9 +147,6 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'profil' => ['string', 'min:3'],
-            'region_id' => ['integer'],
-            'cercle_id' => ['integer'],
-            'secteur_id' => ['integer'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }

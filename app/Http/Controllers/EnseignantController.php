@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Enseignant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreEnseignantRequest;
 use App\Http\Requests\UpdateEnseignantRequest;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class EnseignantController extends Controller
 {
@@ -29,7 +31,7 @@ class EnseignantController extends Controller
             notify()->error("Vous n'avez pas  l'autorisation");
            return redirect('stages/');
         }else{
-            $enseignants = Enseignant::orderBy('id','DESC')->paginate(4);;
+            $enseignants = Enseignant::orderBy('id','DESC')->paginate(10);;
             $total = Enseignant::count();
             return view('enseignants.index', ['enseignants'=>$enseignants, 'total'=>$total]);
         }
@@ -59,6 +61,13 @@ class EnseignantController extends Controller
     {
         //
 
+        $user = new User();
+        $user->name=$request->prenom." ".$request->nom;
+        $user->email=$request->email;
+        $user->profil= 'Enseignant';
+        $user->password= Hash::make($request->password);
+        $user->save();
+
     
         $enseignant = new Enseignant();
         $enseignant->matricule = $request->matricule;
@@ -69,7 +78,7 @@ class EnseignantController extends Controller
         $enseignant->code_postal = $request->code_postal;
         $enseignant->portable = $request->portable;
         $enseignant->adresse = $request->adresse;
-        $enseignant->user_id = $request->user_id;
+        $enseignant->user_id = $user->id;
         $enseignant->save();
 
         return redirect(route('prof-index'))->with('success', 'Enseignant ajouter avec succès.');
@@ -140,8 +149,17 @@ class EnseignantController extends Controller
      */
     public function destroy($id)
     {
-        //
-        Enseignant::find($id)->delete();
-        return redirect(route('prof-index'))->with('success', 'Enregistrement supprimé avec succès.');
+        //*
+        
+        try {
+            //code...
+            Enseignant::find($id)->delete();
+            return redirect(route('prof-index'))->with('success', 'Enregistrement supprimé avec succès.');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect(route('prof-index'))->with('error', 'Impossible terminer operation, il y a erreurs! ');
+        }
+        
+       
     }
 }

@@ -3,16 +3,18 @@
 @section('content')
 
     <div class="container">
+    {{Auth::user()->profil}} : {{$etudiant->id}} {{$etudiant->matricule }} {{$etudiant->prenom}} {{$etudiant->nom}} {{$etudiant->user->id}} 
         {{-- <h2>Zone de Dépot </h2> --}}
         <div class="col-12 mx-auto">
             <form action="{{route('stage-store')}}" method="post" enctype="multipart/form-data" class="row d-flex flex-row align-items-center">
             @csrf
+            <input type="hidden" class="" name="etudiant_id" id="$etudiant->id" accept="" value="{{$etudiant->id}}">
             <div class="col-6">
                 <fieldset>
                     <legend>Stage</legend>
                 <div class="form-group">
                     <label for="fiche">Fiche de renseignement </label>
-                    <input type="file" class="form-control @error('fiche') is-invalid @enderror" name="fiche" accept=".pdf,.docx,.doc" required>
+                    <input type="file" class="form-control @error('fiche') is-invalid @enderror" name="fiche" accept=".pdf,.docx,.doc" required>        
                     @error('fiche')
                      {{ $message }}   
                     @enderror

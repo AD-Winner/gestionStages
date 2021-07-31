@@ -32,6 +32,7 @@ use App\Http\Controllers\R_CandidatController;
 use App\Http\Controllers\TypeElectionController;
 use App\Http\Controllers\CandidatElectionController;
 use App\Http\Controllers\ResultatCandidatController;
+use App\Http\Controllers\EncadreurController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -126,8 +127,15 @@ Route::middleware(['auth'])->group(function(){
         Route::put('/{id}/update', [EtudiantController::class, 'update'])->name('etudiant-update');
         Route::delete('/{id}', [EtudiantController::class, 'destroy'])->name('etudiant-destroy');
         Route::get('/pdf',     [EtudiantController::class, 'geraPdf'])->name('etudiant-print');
-        Route::get('/show',     [EtudiantController::class, 'geraPdf'])->name('etudiant-show');
+        // Route::get('/show',     [UserController::class, 'show'])->name('etudiant-show');
         
+        Route::get('/{id}/profil', [UserController::class, 'profilEtudiant'])->name('etudiant-profil');
+        Route::get('/{id}/profil/show', [UserController::class, 'profilShow'])->name('etudiant-profil-show');
+        Route::put('/{id}/profil/update', [UserController::class, 'profilUpdate'])->name('etudiant-profil-update');
+
+        Route::get('/{id}/profil/enseignant', [UserController::class, 'profilEnseignant'])->name('enseignant-profil');
+        Route::get('/{id}/profil/enseignant/show', [UserController::class, 'profilShowEnseignant'])->name('enseignant-profil-show');
+        Route::put('/{id}/profil/enseignant/update', [UserController::class, 'profilUpdateEnseignant'])->name('enseignant-profil-update');
     });
     Route::prefix('stages')->group(function(){
         Route::get('', [StageController::class, 'index'])->name('stage-index');
@@ -152,8 +160,20 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/depot', [AdminController::class, 'depot'])->name('page-depot');
         Route::get('/contact', [AdminController::class, 'contact'])->name('page-contact');
         Route::get('/tableau', [AdminController::class, 'tableau'])->name('page-tableau');
+        Route::get('/affecter/{id}', [AdminController::class, 'affecter'])->name('page-affecter');
+        Route::post('/affecter', [AdminController::class, 'affectere'])->name('affecter');
         Route::get('/dashboard',     [AdminController::class, 'dashboard'])->name('page-dashboard');
         Route::get('/telechargement',     [AdminController::class, 'telechargement'])->name('page-telechargement');
+
+    });
+    // routes encadreurs
+    Route::prefix('encadreur')->group(function(){
+        Route::get('/', [EncadreurController::class, 'index'])->name('encadreur-index');
+        Route::get('/dashboard',[EncadreurController::class, 'dashboard'])->name('encadreur-dashboard');
+        Route::get('/{id}/show',[EncadreurController::class, 'show'])->name('encadreur-show');
+        Route::get('/affecter',[EncadreurController::class, 'affecter'])->name('encadreur-affecter');
+        Route::get('/{id}/signer',[EncadreurController::class, 'signer'])->name('encadreur-signer');
+        Route::post('/{id}/signer',[EncadreurController::class, 'signer'])->name('encadreur-signer');
 
     });
 
@@ -164,9 +184,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/{id}/edit', [UserController::class, 'edit'])->name('user-edit');
         Route::put('/{id}/update', [UserController::class, 'update'])->name('user-update');
         Route::delete('/{id}', [UserController::class, 'destroy'])->name('user-destroy');
-        Route::get('/pdf',     [UserController::class, 'geraPdf'])->name('user-print');
     });
-    Route::get('users/{id}', function ($id) {
-
-    });
+   
+    
 });

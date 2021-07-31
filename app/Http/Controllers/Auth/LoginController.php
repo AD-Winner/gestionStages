@@ -55,8 +55,13 @@ class LoginController extends Controller
         
         if($user->profil=='Enseignant'){
                 
-                return redirect()->route('responsable-accueil');
+                return redirect()->route('encadreur-index');
+                // return redirect()->route('responsable-accueil');
         }
+        // else
+        // if($user->profil=='Responsable'){
+        //     return redirect()->route('login');
+        // }
         else{
             return redirect()->route('login');
         }

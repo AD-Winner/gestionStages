@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\Stage;
 use App\Models\Classe;
+use App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,13 @@ class Etudiant extends Model
 
     public function classe(){
         return $this->belongsTo(Classe::class);
+    }
+    
+    // public function user(){
+    //     return $this->hasMany(User::class);
+    // }
+    public function user(){
+        return $this->belongsTo(User::class);
     }
     
     public function stages(){

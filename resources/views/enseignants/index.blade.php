@@ -50,6 +50,11 @@
                 <p>{{ \Session::get('success')}}</p>
             </div>
             @endif
+            @if(\Session::has('error'))
+            <div class="alert alert-danger">
+                <p>{{ \Session::get('error')}}</p>
+            </div>
+            @endif
             <!--Button Ajouter et de PDF -->
             
         </div>
@@ -71,7 +76,8 @@
                     <table class="table table-striped table-sm table-hover ">
                         <thead class="table-dark">
                             <tr>
-                                <!-- <th>id</th> -->
+                                <th>id</th>
+                                <th>User</th>
                                 <th>Matricule</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
@@ -87,7 +93,8 @@
                         <tbody>
                         @foreach($enseignants as $prof)
                                 <tr>
-                                    <!-- <td>{{$prof->id}}</td>    -->
+                                    <td>{{$prof->id}}</td>   
+                                    <td>{{$prof->user_id}}</td>   
                                     <td>{{$prof->matricule}}</td>   
                                     <td>{{$prof->prenom}}</td>   
                                     <td>{{$prof->nom}}</td>   

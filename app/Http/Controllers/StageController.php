@@ -45,9 +45,11 @@ class StageController extends Controller
     public function create()
     {
         //
+        $user = Auth::user();
+        $etudiant = Etudiant::where('user_id','=',$user->id)->first();
         $enseignants = Enseignant::all();
         $etudiants = Etudiant::all();
-        return view('stages.create', ['etudiants'=>$etudiants, 'enseignants'=>$enseignants]);
+        return view('stages.create', ['etudiants'=>$etudiants, 'etudiant'=>$etudiant, 'enseignants'=>$enseignants]);
 
     }
     public function offre()
@@ -91,9 +93,10 @@ class StageController extends Controller
                     'voeux_ens1' => $request->voeu1,
                     'voeux_ens2' => $request->voeu2,
                     'voeux_ens3' => $request->voeu3,
-                    'etudiant_id'  => random_int(1,10),
+                    'etudiant_id'  => $request->etudiant_id,//$request->etudiant_id;// random_int(1,10),;
                     'enseignant_id'  => null
                 ]);
+                
                Notify()->success('Depot de stage reussi', 'Depôt');
                 return back();
     }

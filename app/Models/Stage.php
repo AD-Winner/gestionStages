@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Models\Enseignant;
+use App\Models\Etudiant;
 use App\Models\Classe;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,6 +36,9 @@ class Stage extends Model
     }
     public function maitre(){
         return $this->belongsTo(Enseignant::class);
+    }
+    public function etudiant(){
+        return $this->belongsTo(Etudiant::class);
     }
     // public function voeu_ens1(){
     //     return $this->belongsTo(Enseignant::class);

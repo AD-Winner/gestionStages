@@ -3,6 +3,12 @@
 <div class="container mt-4">
     <div class="row  d-flex jusify-content-between align-items-center">
         <div class="col-lg-6">
+            {{$etudiant->prenom}}
+            {{$etudiant->nom}}
+            {{$etudiant->user->id}}
+            {{ Auth::user()->id}}
+            {{ $etudiant->id}}
+        
             <h4>Stages: Informations Pratiques </h4>
             <ul class=" list-group-flush">
                 <li class="list-group-item">info 1 : Lorem ipsum dolor sit amet.</li>

@@ -67,23 +67,23 @@
                             </div>
                             <div class="form-group mt-2 mr-3">
                                 <label for="classe_id">Parcours :</label>
-                               
-                                    <select name="classe_id" id="classe_id" class="form-control" required>
-                                        <option>selectionner le parcours ...</option>
-                                        @foreach($classes as $parcours))
-                                        <option value="{{ $parcours->id }} "> {{$parcours->nom}} {{ $parcours->annee }} {{ $parcours->niveau }} </option>
-                                        @endforeach
-                            </select>
-                            </div>
-
-                            <div class="form-group ml-3 mr-3">
-                                <label for="user_id">Login : </label>                           
-                                    <select name="user_id" id="user_id" class="membre col-md-12 form-control col-form-label text-md-right" required>
-                                    <option>selectionner le login ...</option>
-                                    @foreach($users as $user)
-                                        <option value="">  {{$user->name}} {{ $user->profil }} {{ $user->email }}</option>
-                                    @endforeach                        
+                                
+                                <select name="classe_id" id="classe_id" class="form-control" required>
+                                    <option>selectionner le parcours ...</option>
+                                    @foreach($classes as $parcours))
+                                    <option value="{{ $parcours->id }} "> {{$parcours->nom}} {{ $parcours->annee }} {{ $parcours->niveau }} </option>
+                                    @endforeach
                                 </select>
+                            </div>
+                            
+                            <div class="form-group ml-3 mr-3">
+                                
+                                
+                                <div class="form-group mt-2 mr-3">
+                                    <label for="name">Mot  de passe:</label>
+                                    <input type="password" id="password" name="password" required class="form-control" placeholder="Mot de passe..."/>
+                                </div>
+                            
                             </div>
                        
                         </div>

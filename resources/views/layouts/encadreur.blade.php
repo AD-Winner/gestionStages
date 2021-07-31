@@ -45,27 +45,23 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                                  <li class="nav-item">
-                                    <a class="nav-link @if(\Route::current()->getName() == 'etudiant-accueil') active  @endif" href="{{route('etudiant-accueil')}} "><i class="fas fa-house-user"></i>Accueil</a>
+                                    <a class="nav-link @if(\Route::current()->getName() == 'encadreur-index') active  @endif" href="{{route('encadreur-index')}} "><i class="fas fa-house-user"></i>Accueil</a>
                                 </li>
                                  <li class="nav-item">
-                                    <a class="nav-link @if(\Route::current()->getName() == 'stage-create') active  @endif" href="{{route('stage-create')}} "><i class="fas fa-house-user"></i> Depot</a>
-                                </li>
-                                 <li class="nav-item">
-                                    <a class="nav-link @if(\Route::current()->getName() == 'stage-index') active  @endif" href=" {{route('stage-index')}} "><i class="fas fa-house-user"></i> Tableau de Bord</a>
-                                </li>
-                                 <li class="nav-item">
-                                    <a class="nav-link @if(\Route::current()->getName() == 'stage-offre') active  @endif" href=" {{route('stage-offre')}}"><i class="fas fa-house-user"></i> Offre d'emploi</a>
-                                </li>
-                                 <li class="nav-item">
-                                    <a class="nav-link @if(\Route::current()->getName() == 'stage-contact') active  @endif" href=" {{route('stage-contact')}}"><i class="fas fa-phone"></i> Contact</a>
-                                </li>  
+                                    <a class="nav-link @if(\Route::current()->getName() == 'encadreur-dashboard') active  @endif" href=" {{route('encadreur-dashboard')}} "><i class="fas fa-house-user"></i> Tableau de Bord</a>
+                                </li>    
+                                @if($enseignant->classes->count() != 0)
+                                <li class="nav-item">
+                                  <a class="nav-link @if(\Route::current()->getName() == 'encadreur-affecter') active  @endif" href=" {{route('encadreur-affecter')}} "><i class="fas fa-house-user"></i> Affectation </a>
+                              </li> 
+                                @endif   
                                 <li>
-                                    <a class="nav-link @if(\Route::current()->getName() == 'etudiant-profil') active  @endif" href="{{ route('etudiant-profil', ['id'=>Auth::user()->id]) }}" >                                                                  
+                                    <a class="nav-link @if(\Route::current()->getName() == 'enseignant-profil') active  @endif" href="{{ route('enseignant-profil', ['id'=>Auth::user()->id]) }}" >                                                                  
                                        <i class="fas fa-sign-out-alt">
                                        </i> {{('Profil') }}
                                     </a>
 
-                                </li>                         
+                                </li>                     
                                 <!-- FIN -->
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle rounded" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -129,9 +125,38 @@
             <li><a href="{{ route('stage-contact') }}">Nous Contacter</a></li>
         </ul>
         </div>
+        
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">Politique de confidentialité </h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <p class="text-justify">
+                                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur perferendis laborum obcaecati accusantium, ut dicta, magnam nobis repudiandae maxime, eligendi molestias? Inventore corporis officia soluta assumenda ab, quidem eaque exercitationem?
+                                      Quas fugiat veritatis, et delectus distinctio dolores est nisi reprehenderit dolor minus, omnis quo, at asperiores. Quidem cum quisquam omnis, atque fugit aliquam libero necessitatibus, dolor possimus dolorem eligendi illum!
+                                      Voluptates voluptatum odit non eius animi ipsam! Dolorum autem distinctio debitis modi consequatur error, et labore excepturi libero omnis in nemo fugiat quo sapiente, laborum sunt aliquam est. Vero, minima?
+                                      Fugiat officiis fugit, consequatur vitae eveniet in at placeat dolore animi dignissimos! Laudantium a consequatur natus iure excepturi, pariatur labore, distinctio quam, vel possimus sed. Totam asperiores a iste reprehenderit.
+                                      Tempore non soluta ex fuga labore facilis, laudantium ipsa quisquam corrupti qui praesentium autem quas reprehenderit minima nihil corporis ipsum sed aperiam fugiat totam ipsam. Nesciunt maxime expedita non voluptatem?
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
         <div  class="col-lg-4">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ad beatae ex! Illo doloribus voluptate reprehenderit similique velit sed voluptas laboriosam iusto, dicta provident illum atque possimus nemo, quidem voluptatibus?
-        <a href="#">Voir plus</a>
+        <button type="button" class="btn btn-outline " data-toggle="modal" data-target="#staticBackdrop">
+            voir plus 
+          </button>
         </div>
     </div>
     <h6 class="text-center bg-info text-white p-1">&copy;  Iae-Lyon <?php echo date('Y')  ?> </h6>
@@ -144,16 +169,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="{{ asset('js/jquery.min.js') }}" ></script>
-    
-<!--
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
--->
-
-    <!-- Script javascripts  -->
-    <!-- <script src="../../public/js/script.js"></script>
-    <script src="../../public/js/jquery-3.5.1.min.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
 </body>
 </html>

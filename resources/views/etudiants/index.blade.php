@@ -72,6 +72,7 @@
                         <thead class="table-dark">
                             <tr>
                                 <!-- <th>id</th> -->
+                                <th>User_ID</th>
                                 <th>Matricule</th>
                                 <th>Prenom</th>
                                 <th>Nom</th>
@@ -87,6 +88,7 @@
                         @foreach($etudiants as $etudiant)
                                 <tr>
                                     <!-- <td>{{$etudiant->id}}</td>    -->
+                                    <td>{{$etudiant->user_id}}</td>   
                                     <td>{{$etudiant->matricule}}</td>   
                                     <td>{{$etudiant->prenom}}</td>   
                                     <td>{{$etudiant->nom}}</td>   

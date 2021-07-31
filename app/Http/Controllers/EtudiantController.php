@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use App\Models\Etudiant;
 use App\Models\User;
 use App\Models\Classe;
@@ -19,7 +20,7 @@ class EtudiantController extends Controller
     public function index()
     {
         //
-        $etudiants = Etudiant::orderBy('id','DESC')->paginate(4);;
+        $etudiants = Etudiant::orderBy('id','DESC')->paginate(10);;
         $total = Etudiant::count();
         return view('etudiants.index', ['etudiants'=>$etudiants, 'total'=>$total]);
     }
@@ -50,6 +51,13 @@ class EtudiantController extends Controller
     public function store(StoreEtudiantRequest $request)
     {
         //
+        $user = new User();
+        $user->name=$request->prenom." ".$request->nom;
+        $user->email=$request->email;
+        $user->profil= 'Etudiant';
+        $user->password= Hash::make($request->password);
+        $user->save();
+
         $etudiant = new Etudiant();
         $etudiant->matricule = $request->matricule;
         $etudiant->prenom = $request->prenom;
@@ -60,8 +68,12 @@ class EtudiantController extends Controller
         $etudiant->portable = $request->portable;
         $etudiant->adresse = $request->adresse;
         $etudiant->classe_id = $request->classe_id;
-        $etudiant->user_id = $request->user_id;
+        $etudiant->user_id = $user->id;
         $etudiant->save();
+
+
+    
+
         return redirect(route('etudiant-index'))->with('success', 'Les informations  ajoutées avec succès.');
     }
 
