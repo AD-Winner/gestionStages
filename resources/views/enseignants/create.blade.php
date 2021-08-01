@@ -64,13 +64,6 @@
                             <input type="text" id="adresse" name="adresse" required class="form-control" placeholder="Adresse..."/>
                         </div>
                         <div class="form-group ml-3 mr-3">
-                            <label for="user_id">Mot de passe : </label>                           
-                                <!-- <select name="user_id" id="user_id" class="membre col-md-12 form-control col-form-label text-md-right" required>
-                                <option>selectionner le login ...</option>
-                                @foreach($users as $user)
-                                    <option value="">  {{$user->name}} {{ $user->profil }} {{ $user->email }}</option>
-                                @endforeach                        
-                                </select> -->
                                 <div class="form-group mt-2 mr-3">
                                     <label for="name">Mot  de passe:</label>
                                     <input type="password" id="password" name="password" required class="form-control" placeholder="Mot de passe..."/>

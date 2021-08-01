@@ -84,16 +84,7 @@
                             </div>
                         </div>
                         
-                        <div class="form-group ml-3 mr-3">
-                                <label for="user_id">Login : </label>                           
-                                    <select name="user_id" id="user_id" class="membre col-md-12 form-control col-form-label text-md-right" required>
-                                    <option>selectionner le login ...</option>
-                                    @foreach($users as $user)
-                                        <!-- <option value="{{$user->id}}">  {{$user->name}} {{ $user->profil }} {{ $user->email }}</option> -->
-                                        <option <?= $enseignant->user_id==$user->id ? 'selected' : '' ?> value="{{ $user->id }} "> {{$enseignant->matricule}} {{$user->name}}  {{ $user->profil }} {{ $user->email }} </option>
-                                    @endforeach                        
-                                </select>
-                            </div>
+                        
                         
 
                         <div class="form-group float-left mt-4 text-center">
